@@ -2,6 +2,7 @@
 <suite name="Allure Test Suite">
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+        <listener class-name="org.listener.TestListener" />
     </listeners>
 
     <test name="Allure Tests">
