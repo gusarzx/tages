@@ -1,0 +1,11 @@
+{
+  "baseUrl": "https://tages.ru/",
+  "webdriver": {
+    "path": "/Users/gusar/IdeaProjects/driver/chromedriver",
+    "browser": "chrome"
+  },
+  "timeouts": {
+    "implicitWait": 10,
+    "explicitWait": 10
+  }
+}
