@@ -1,0 +1,26 @@
+package org.pages.academy;
+
+import org.actions.Actions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+
+public class Academy {
+    private final Actions actions;
+
+    public Academy(WebDriver driver) {
+        this.actions = new Actions(driver);
+    }
+
+    private final By pageButton = By.xpath("(//li[@class='nav-menu__item']//a)[2]");
+    private final By mainText = By.xpath("//div[@class='academy container']//h1[1]");
+
+    protected void goToPage() {
+        actions.click(pageButton);
+    }
+
+    protected void checkMainText(String text) {
+        Assert.assertEquals(actions.getText(mainText), text, "Ожидался: " + text + ", но имеем: "
+                + actions.getText(mainText));
+    }
+}

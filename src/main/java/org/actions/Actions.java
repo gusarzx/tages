@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Actions {
     private WebDriver driver;
@@ -23,6 +25,18 @@ public class Actions {
         element.click();
     }
 
+    // Явное ожидание: элемент кликабелен
+    private WebElement waitForElementToBeClickable(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    // Явное ожидание: элемент видим
+    private WebElement waitForElementToBeVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
     // Метод для ввода текста
     public void enterText(By locator, String text) {
         WebElement element = waitForElementToBeVisible(locator);
@@ -36,6 +50,12 @@ public class Actions {
         return element.getText();
     }
 
+    public List<WebElement> find(By locator) {
+        WebElement element = waitForElementToBeClickable(locator);
+        return element.findElements(locator);
+    }
+
+
     // Метод для выполнения JavaScript-скрипта
     public void executeJavaScript(String script, Object... args) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -48,15 +68,4 @@ public class Actions {
         executeJavaScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    // Явное ожидание: элемент кликабелен
-    private WebElement waitForElementToBeClickable(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    // Явное ожидание: элемент видим
-    private WebElement waitForElementToBeVisible(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
 }

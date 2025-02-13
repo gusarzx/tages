@@ -7,15 +7,13 @@ import org.utils.ScreenshotUtil;
 
 public class TestListener implements ITestListener {
 
-    private final WebDriver driver;
-
-    public TestListener(WebDriver driver) {
-        this.driver = driver;
+    @Override
+    public void onTestStart(ITestResult result) {
+        // Реализация метода
     }
 
     @Override
-    public void onTestFailure(ITestResult result) {
-        ScreenshotUtil screenshotUtil = new ScreenshotUtil(driver);
-        screenshotUtil.takeScreenshot();
+    public void onTestSuccess(ITestResult result) {
+        // Реализация метода
     }
 }

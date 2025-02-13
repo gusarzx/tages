@@ -1,11 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Allure Test Suite">
+<suite name="АФТ тесты для проекта TAGES">
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg" />
         <listener class-name="org.listener.TestListener" />
     </listeners>
 
-    <test name="Allure Tests">
+    <test name="Проверка элементов на главной странице">
         <classes>
             <class name="ui.CheckElementOnMainPageTest" />
         </classes>
