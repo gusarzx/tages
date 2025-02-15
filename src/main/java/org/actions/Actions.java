@@ -1,7 +1,6 @@
 package org.actions;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,60 +11,78 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Actions {
-    private WebDriver driver;
+    private final WebDriver driver;
 
-    // Конструктор
     public Actions(WebDriver driver) {
         this.driver = driver;
     }
 
-    // Метод для клика по элементу
     public void click(By locator) {
         WebElement element = waitForElementToBeClickable(locator);
         element.click();
     }
 
-    // Явное ожидание: элемент кликабелен
-    private WebElement waitForElementToBeClickable(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    // Явное ожидание: элемент видим
-    private WebElement waitForElementToBeVisible(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    // Метод для ввода текста
     public void enterText(By locator, String text) {
         WebElement element = waitForElementToBeVisible(locator);
         element.clear();
         element.sendKeys(text);
     }
 
-    // Метод для получения текста элемента
     public String getText(By locator) {
         WebElement element = waitForElementToBeVisible(locator);
-        return element.getText();
+        return element.getText().trim();
     }
 
-    public List<WebElement> find(By locator) {
-        WebElement element = waitForElementToBeClickable(locator);
-        return element.findElements(locator);
+    public List<String> getTextsFromElements(By locator) {
+        List<WebElement> elements = waitForElementsToBeVisible(locator);
+        List<String> texts = new ArrayList<>();
+        for (WebElement element : elements) {
+            texts.add(element.getText().trim());
+        }
+        return texts;
     }
 
-
-    // Метод для выполнения JavaScript-скрипта
-    public void executeJavaScript(String script, Object... args) {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript(script, args);
+    public List<String> getAttributesFromElements(By locator, String attribute) {
+        List<WebElement> elements = waitForElementsToBeVisible(locator);
+        List<String> attributes = new ArrayList<>();
+        for (WebElement element : elements) {
+            attributes.add(element.getAttribute(attribute).trim());
+        }
+        return attributes;
     }
 
-    // Метод для скроллинга к элементу
-    public void scrollToElement(By locator) {
-        WebElement element = waitForElementToBeVisible(locator);
-        executeJavaScript("arguments[0].scrollIntoView(true);", element);
+    public List<String> getAttributesFromElements(By locator, String tagName, String attribute) {
+        List<WebElement> elements = waitForElementsToBeVisible(locator);
+        List<String> attributes = new ArrayList<>();
+        for (WebElement element : elements) {
+            WebElement child = element.findElement(By.tagName(tagName));
+            attributes.add(child.getAttribute(attribute).trim());
+        }
+        return attributes;
     }
 
+    public boolean isButtonClickable(By locator) {
+        try {
+            waitForElementToBeClickable(locator);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private WebElement waitForElementToBeClickable(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    private WebElement waitForElementToBeVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    private List<WebElement> waitForElementsToBeVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+    }
 }
+

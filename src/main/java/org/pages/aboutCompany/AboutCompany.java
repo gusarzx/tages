@@ -1,5 +1,6 @@
 package org.pages.aboutCompany;
 
+import io.qameta.allure.Step;
 import org.actions.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,12 +17,16 @@ public class AboutCompany {
     private final By pageButton = By.xpath("(//li[@class='nav-menu__item'])[1]");
     private final By mainText = By.xpath("//section[@class='section section-about-lead']//p[1]");
 
-    protected void goToPage() {
+    @Step("Переходим на вкладку \"О компании\"")
+    public AboutCompany goToPage() {
         actions.click(pageButton);
+        return this;
     }
 
-    protected void checkMainText(String text) {
-        Assert.assertEquals(actions.getText(mainText), text, "Ожидался: " + text + ", но имеем: "
-                + actions.getText(mainText));
+    @Step("Проверяем заголовок вкладки \"О компании\"")
+    public AboutCompany checkHeaderText(AboutCompanyEnum expectedText) {
+        String actualText = actions.getText(mainText).trim();
+        Assert.assertEquals(actualText, expectedText.getText(), "Ожидался: " + expectedText.getText() + ", но имеем: " + actualText);
+        return this;
     }
 }

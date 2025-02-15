@@ -1,9 +1,7 @@
 package org.listener;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import org.utils.ScreenshotUtil;
 
 public class TestListener implements ITestListener {
 

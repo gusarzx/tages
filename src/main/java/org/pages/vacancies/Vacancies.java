@@ -1,5 +1,6 @@
 package org.pages.vacancies;
 
+import io.qameta.allure.Step;
 import org.actions.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,12 +17,16 @@ public class Vacancies {
     private final By pageButton = By.xpath("//a[@aria-label='Вакансии']");
     private final By mainText = By.xpath("//div[@class='vacancies container']//h1[1]");
 
-    protected void goToPage() {
+    @Step("Переходим на вкладку \"Вакансии\"")
+    public Vacancies goToPage() {
         actions.click(pageButton);
+        return this;
     }
 
-    protected void checkMainText(String text) {
-        Assert.assertEquals(actions.getText(mainText), text, "Ожидался: " + text + ", но имеем: "
-                + actions.getText(mainText));
+    @Step("Проверяем заголовок вкладки \"Вакансии\"")
+    public Vacancies checkHeaderText(VacanciesEnum expectedText) {
+        String actualText = actions.getText(mainText).trim();
+        Assert.assertEquals(actualText, expectedText.getText(), "Ожидался: " + expectedText.getText() + ", но имеем: " + actualText);
+        return this;
     }
 }
