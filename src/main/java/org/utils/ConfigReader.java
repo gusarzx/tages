@@ -12,7 +12,6 @@ public class ConfigReader {
 
     static {
         try {
-            // Читаем JSON-файл и преобразуем его в Map
             ObjectMapper mapper = new ObjectMapper();
             config = mapper.readValue(new File("src/main/resources/config.json"), Map.class);
         } catch (IOException e) {
@@ -20,7 +19,6 @@ public class ConfigReader {
         }
     }
 
-    // Получение значения по ключу
     public static String getBaseUrl() {
         return (String) config.get("baseUrl");
     }
@@ -43,5 +41,20 @@ public class ConfigReader {
     public static int getExplicitWait() {
         Map<String, Integer> timeouts = (Map<String, Integer>) config.get("timeouts");
         return timeouts.get("explicitWait");
+    }
+
+    public static boolean isGridEnabled() {
+        Map<String, Object> grid = (Map<String, Object>) config.get("grid");
+        return (boolean) grid.get("turnOn");
+    }
+
+    public static String getGridUrl() {
+        Map<String, Object> grid = (Map<String, Object>) config.get("grid");
+        return (String) grid.get("url");
+    }
+
+    public static String getBrowserVersion() {
+        Map<String, Object> grid = (Map<String, Object>) config.get("grid");
+        return (String) grid.get("browserVersion");
     }
 }

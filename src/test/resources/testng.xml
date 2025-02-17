@@ -3,11 +3,67 @@
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg" />
         <listener class-name="org.listener.TestListener" />
+        <listener class-name="org.listener.RetryTransformer" />
     </listeners>
 
-    <test name="Проверка элементов на главной странице">
+    <test name="Проверка всех тестов на главном экране">
         <classes>
             <class name="ui.CheckElementOnMainPageTest" />
+        </classes>
+    </test>
+    <test name="Переход между вкладками">
+        <groups>
+            <run>
+                <include name="navigation"/>
+                <include name="regress"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ui.CheckElementOnMainPageTest"/>
+        </classes>
+    </test>
+    <test name="Проверка содержимого в блоках">
+        <groups>
+            <run>
+                <include name="contentItem"/>
+                <include name="regress"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ui.CheckElementOnMainPageTest"/>
+        </classes>
+    </test>
+    <test name="Ссылки на сторонний ресурс">
+        <groups>
+            <run>
+                <include name="strangerLink"/>
+                <include name="regress"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ui.CheckElementOnMainPageTest"/>
+        </classes>
+    </test>
+    <test name="Ссылки внутри нашего вэб сервиса">
+        <groups>
+            <run>
+                <include name="ourLink"/>
+                <include name="regress"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ui.CheckElementOnMainPageTest"/>
+        </classes>
+    </test>
+    <test name="Валидация полей для отправки запроса">
+        <groups>
+            <run>
+                <include name="validationSend"/>
+                <include name="regress"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ui.CheckElementOnMainPageTest"/>
         </classes>
     </test>
 </suite>

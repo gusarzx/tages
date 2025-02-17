@@ -1,14 +1,19 @@
 package org.pages.home;
 
-public enum HomeEnum {
-    HEADER("Скорее всего, вам порекомендовали нас. Если вы здесь, то вам нужно качественное технологическое решение."),
+import org.interfaces.HasText;
+
+public enum HomeEnum implements HasText {
+    URL("https://tages.ru/"),
+    TITLE("TAGES: цифровизация бизнес-процессов. Аналитики, интеграция, разработка ПО и мобильных приложений"),
+    TITLE_TEXT("Скорее всего, вам порекомендовали нас. Если вы здесь, то вам нужно качественное технологическое решение."),
     NUMBER("+7 (495) 640-23-94"),
     MAIL("jump@tages.ru"),
     PRESS_NUMBER("+7 (915) 364-61-26"),
     PRESS_MAIL("pr@tages.ru"),
     COMMENT("Комментарий"),
-    HEADER_CONTACT("Контактная информация"),
-    SUB_HEADER_CONTACT("Напишите нам, и мы поможем Вам в решении бизнес задач.");
+    TITLE_CONTACT("Контактная информация"),
+    SUB_TITLE_CONTACT("Напишите нам, и мы поможем Вам в решении бизнес задач."),
+    FORM_URL("https://tages.ru/#form");
 
     private final String text;
 
@@ -16,6 +21,7 @@ public enum HomeEnum {
         this.text = text;
     }
 
+    @Override
     public String getText() {
         return text;
     }

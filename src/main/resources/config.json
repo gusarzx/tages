@@ -7,5 +7,12 @@
   "timeouts": {
     "implicitWait": 10,
     "explicitWait": 10
+  },
+  "grid": {
+    "turnOn": false,
+    "url": "http://localhost:4444/wd/hub",
+    "browserVersion": "125.0",
+    "browser": "chrome",
+    "implicitWait": 10
   }
 }
