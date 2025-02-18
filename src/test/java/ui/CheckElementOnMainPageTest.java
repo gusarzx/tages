@@ -762,6 +762,22 @@ public class CheckElementOnMainPageTest {
                 .checkSuccessSend();
     }
 
+    @Test(groups = {"regress", "validationSend"}, description = "Проверка отправки запроса со всеми полями - \"null\"")
+    public void test41() {
+
+        home
+                .inputName("null")
+                .inputNumber(NUMBER)
+                .inputCompany("null")
+                .inputMail("null@null.com")
+                .inputComment("null")
+                .clickSend()
+                .checkNotInvalidValueName()
+                .checkNotInvalidValueNumber()
+                .checkNotInvalidValueMail()
+                .checkSuccessSend();
+    }
+
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
