@@ -9,7 +9,7 @@
     "explicitWait": 10
   },
   "grid": {
-    "turnOn": false,
+    "turnOn": true,
     "url": "http://localhost:4444/wd/hub",
     "browserVersion": "125.0",
     "browser": "chrome",
